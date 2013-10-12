@@ -2,7 +2,7 @@
 	$.fn.roller = function(options) {
 		var o = $.extend({
 			speed: 300,
-			delay: 3000,
+			delay: 5000,
 			item: 5,
 			isAuto: true
 		}, options || {});
@@ -23,6 +23,7 @@
 				play;
 				
 			$wrapper.width(wWidth);
+			$roller.width(rWidth);
 			
 			function roll(ra) {
 				if(!isRolling) {
@@ -72,18 +73,18 @@
 					}
 				}
 			}
-			
-			play = setInterval(autoRoll, o.delay);
-			
-			$t.bind({
-				'mouseenter': function() {
-					clearInterval(play);
-				},
-				'mouseleave': function() {
-					play = setInterval(autoRoll, o.delay);
-				}
-			});
-			
+			if(o.isAuto) {
+				play = setInterval(autoRoll, o.delay);
+				
+				$t.bind({
+					'mouseenter': function() {
+						clearInterval(play);
+					},
+					'mouseleave': function() {
+						play = setInterval(autoRoll, o.delay);
+					}
+				});
+			}
 		});
 	};
 })(jQuery);
